@@ -1,7 +1,7 @@
 package com.expertise.expertiseRaport.converter;
 
 import com.expertise.expertiseRaport.domain.User;
-import com.expertise.expertiseRaport.model.response.RegisterResponse;
+import com.expertise.expertiseRaport.model.request.RegisterRequest;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Builder
 public class UserRegisterConverter {
 
-    public RegisterResponse register(User user) {
-        RegisterResponse register = new RegisterResponse();
+    public RegisterRequest register(User user) {
+        RegisterRequest register = new RegisterRequest();
         register.setUserName(register.getUserName());
         register.setPassword(register.getPassword());
         register.setFirstName(register.getFirstName());
