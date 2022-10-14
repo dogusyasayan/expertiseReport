@@ -19,7 +19,7 @@ public class HoodManager implements HoodService {
         List<Hood> hoods = hoodRepository.findAllByTownId(townId);
 
         if (hoods.isEmpty()){
-            throw new IllegalArgumentException();//hood cant found
+            throw new IllegalArgumentException();//hood cant found exception
         }
 
         return hoods;
