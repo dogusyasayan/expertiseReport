@@ -5,6 +5,7 @@ import com.expertise.expertiseRaport.model.request.LoginRequest;
 import com.expertise.expertiseRaport.model.request.RegisterRequest;
 import com.expertise.expertiseRaport.model.request.UserRequest;
 import com.expertise.expertiseRaport.model.response.LoginResponse;
+import com.expertise.expertiseRaport.model.response.UserResponse;
 
 import java.util.List;
 
@@ -19,6 +20,6 @@ public interface UserService {
 
      User update(Long id, UserRequest user);
 
-     List<User> getAllUser();
+     List<UserResponse> getAllUser();
 
 }

@@ -2,6 +2,7 @@ package com.expertise.expertiseRaport.converter;
 
 import com.expertise.expertiseRaport.domain.User;
 import com.expertise.expertiseRaport.model.request.UserRequest;
+import com.expertise.expertiseRaport.model.response.LoginResponse;
 import com.expertise.expertiseRaport.model.response.UserResponse;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,12 @@ public class UserConverter {
                 .lastName(user.getLastName())
                 .build();
     }
-/*
+    public UserResponse userLoginResponse(UserRequest userRequest, User user){
+       return  UserResponse.builder()
+               .id(user.getId())
+               .build();
+    }
+
     public List<UserResponse> usersList(List<User> userList){
         List<UserResponse> listResponse=new ArrayList<>();
 
@@ -28,13 +34,13 @@ public class UserConverter {
         {
             User user=userList.get(i);
             //UserResponse userResponse=new UserResponse();
-            UserResponse.builder()
+            UserResponse response= UserResponse.builder()
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .build();
-            listResponse.add();
+            listResponse.add(response);
         }
         return  listResponse;
     }
- */
+
 }

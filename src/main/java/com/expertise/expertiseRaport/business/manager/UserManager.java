@@ -12,6 +12,7 @@ import com.expertise.expertiseRaport.model.request.LoginRequest;
 import com.expertise.expertiseRaport.model.request.RegisterRequest;
 import com.expertise.expertiseRaport.model.request.UserRequest;
 import com.expertise.expertiseRaport.model.response.LoginResponse;
+import com.expertise.expertiseRaport.model.response.UserResponse;
 import com.expertise.expertiseRaport.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,67 +27,65 @@ public class UserManager implements UserService {
 
     private final UserRepository userRepository;
     private final UserConverter userConverter;
-    private  final UserRegisterConverter userRegisterConverter;
+    private final UserRegisterConverter userRegisterConverter;
 
     @Override
     public void register(RegisterRequest request) {
-        if (request.getUserName()==null || request.getPassword()==null)
-        {
+        if (request.getUserName() == null || request.getPassword() == null) {
             throw new UserNameAndPasswordCantBeNull();
         }
-        Optional<User> user=userRepository.findFirstByUserName(request.getUserName());
-       if (user.isPresent()) {
-           throw  new UserAlreadyExits();
-       }
+        Optional<User> user = userRepository.findFirstByUserName(request.getUserName());
+        if (user.isPresent()) {
+            throw new UserAlreadyExits();
+        }
 
-       User user1= User.builder()
-               .firstName(request.getFirstName())
-               .lastName(request.getLastName())
-               .userName(request.getUserName())
-               .password(request.getPassword())
-               .status(true)
-               .build();
+        User user1 = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .userName(request.getUserName())
+                .password(request.getPassword())
+                .status(true)
+                .build();
         userRepository.save(user1);
     }
 
-    public LoginResponse login(LoginRequest loginRequest){
-        Optional<User> user=userRepository.findFirstByUserNameAndPassword(loginRequest.getUserName(), loginRequest.getPassword());
-        if (user.isEmpty()){
-            throw  new LoginCantFound();
+    public LoginResponse login(LoginRequest loginRequest) {
+        Optional<User> user = userRepository.findFirstByUserNameAndPassword(loginRequest.getUserName(), loginRequest.getPassword());
+        if (user.isEmpty()) {
+            throw new LoginCantFound();
         }
-        LoginResponse response= LoginResponse.builder()
-                .firstName(user.get().getFirstName())
-                .lastName(user.get().getLastName())
+        LoginResponse response = LoginResponse.builder()
+                .id(user.get().getId())
                 .build();
-        return  response;
+        return response;
     }
 
     @Override
     public void delete(Long id) {
-        Optional<User> resultUser=userRepository.findById(id);
+        Optional<User> resultUser = userRepository.findById(id);
 
-        if (resultUser.isEmpty()){
- throw  new UserIsNotExitsException();
+        if (resultUser.isEmpty()) {
+            throw new UserIsNotExitsException();
         }
     }
 
     @Override
     public User update(Long id, UserRequest userRequest) {
-        Optional<User> updatedUser=userRepository.findById(id);
+        Optional<User> updatedUser = userRepository.findById(id);
         if (updatedUser.isEmpty()) {
             throw new UserIsNotExitsException();
         }
-        userConverter.userUpdateResponse(userRequest,updatedUser.get());
+        userConverter.userUpdateResponse(userRequest, updatedUser.get());
 
         return userRepository.save(updatedUser.get());
     }
 
     @Override
-    public List<User> getAllUser() {
+    public List<UserResponse> getAllUser() {
         List<User> users = userRepository.findAll();
         if (CollectionUtils.isEmpty(users)) {
             throw new UserIsNotExitsException();
         }
-        return users;
+        return userConverter.usersList(users);
     }
 }

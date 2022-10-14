@@ -36,9 +36,9 @@ public class UserController {
         userService.delete(id);
     }
     @GetMapping("/getAll")
-    public List<User> getProduct() {
-        List<User> users = userService.getAllUser();
-        return null;
+    public List<UserResponse> getAll() {
+        List<UserResponse> users = userService.getAllUser();
+        return users;
 
     }
 
