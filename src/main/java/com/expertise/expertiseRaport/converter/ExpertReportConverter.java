@@ -10,6 +10,9 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 @Builder
@@ -24,6 +27,24 @@ public class ExpertReportConverter {
                 .adress(expertiseRequest.getAdress())
                 .price(expertiseRequest.getPrice())
                 .build();
+    }
+
+    public List<ExpertiseResponse> expertiseResponseList(List<ExpertReport> expertReportList) {
+        List<ExpertiseResponse> listResponse = new ArrayList<>();
+
+        for (int i = 0; i < expertReportList.size(); i++) {
+            ExpertReport expertReport = expertReportList.get(i);
+            ExpertiseResponse response = ExpertiseResponse.builder()
+                    .userId(expertReport.getUserId())
+                    .adress(expertReport.getAdress())
+                    .cityId(expertReport.getCityId())
+                    .hoodId(expertReport.getHoodId())
+                    .townId(expertReport.getTownId())
+                    .price(expertReport.getPrice())
+                    .build();
+            listResponse.add(response);
+        }
+        return listResponse;
     }
 
 }

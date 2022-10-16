@@ -7,6 +7,7 @@ import com.expertise.expertiseRaport.domain.User;
 import com.expertise.expertiseRaport.exception.*;
 import com.expertise.expertiseRaport.model.request.ExpertiseRequest;
 import com.expertise.expertiseRaport.model.request.RegisterRequest;
+import com.expertise.expertiseRaport.model.response.ExpertiseResponse;
 import com.expertise.expertiseRaport.repository.ExpertRepository;
 import com.expertise.expertiseRaport.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,10 +42,12 @@ public class ExpertManager implements ExpertService {
         }
         ExpertReport expertReport=  expertReportConverter.expertiseReportAdd(request);
         expertRepository.save(expertReport);
-
-        //Fazla if ?
-        //Convertere çağır
-
-
+    }
+    public List<ExpertiseResponse> getAllExpertiseReports(){
+        List<ExpertReport> expertReports=expertRepository.findAll();
+        if (expertReports.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        return expertReportConverter.expertiseResponseList(expertReports);
     }
 }

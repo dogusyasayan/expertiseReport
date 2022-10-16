@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface HoodService {
 
-
+    List<Hood> getHoodsByTownId(Long townId);
 }

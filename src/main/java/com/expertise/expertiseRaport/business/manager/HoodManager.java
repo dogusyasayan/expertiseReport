@@ -14,12 +14,12 @@ public class HoodManager implements HoodService {
 
     private  final HoodRepository hoodRepository;
 
-    public List<Hood> getHoods(Long townId){
+    public List<Hood> getHoodsByTownId(Long townId){
 
         List<Hood> hoods = hoodRepository.findAllByTownId(townId);
 
         if (hoods.isEmpty()){
-            throw new IllegalArgumentException();//hood cant found exception
+            throw new IllegalArgumentException("Hood Cant Found");//hood cant found exception
         }
 
         return hoods;

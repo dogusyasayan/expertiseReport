@@ -2,7 +2,6 @@ package com.expertise.expertiseRaport.business.manager;
 
 import com.expertise.expertiseRaport.business.service.TownService;
 import com.expertise.expertiseRaport.converter.TownConverter;
-import com.expertise.expertiseRaport.domain.City;
 import com.expertise.expertiseRaport.domain.Town;
 import com.expertise.expertiseRaport.model.request.TownRequest;
 import com.expertise.expertiseRaport.model.response.TownResponse;
@@ -30,4 +29,12 @@ public class TownManager implements TownService {
         return townConverter.townsList(towns);
     }
 
+    public List<Town> getTownsByCityId(Long cityId) {
+        List<Town> towns = townRepository.findAllByCityId(cityId);
+        if (towns.isEmpty()) {
+            throw new IllegalArgumentException("Town Cant Found");
+        }
+        return towns;
+    }
 }
+

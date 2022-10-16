@@ -33,7 +33,6 @@ public class UserConverter {
         for (int i=0; i<userList.size(); i++)
         {
             User user=userList.get(i);
-            //UserResponse userResponse=new UserResponse();
             UserResponse response= UserResponse.builder()
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())

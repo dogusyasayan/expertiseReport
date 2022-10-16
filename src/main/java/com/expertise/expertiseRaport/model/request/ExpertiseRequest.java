@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ExpertiseRequest {
-    private Long id;
+
     private Long userId;
     private Long cityId;
     private Long townId;
