@@ -15,7 +15,6 @@ public class AuctionConverter {
                 .userId(auctionRequest.getUserId())
                 .expertId(auctionRequest.getExpertId())
                 .description(auctionRequest.getDescription())
-
                 .build();
     }
 }
